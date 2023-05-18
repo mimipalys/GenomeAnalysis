@@ -23,9 +23,5 @@ useGrid=false \
 genomeSize=2.4m \
 -pacbio $INPUT
 
-# running prokka
-prokka \
---outdir $OUTPUT --prefix lferr --locustag LFT \
---genus Leptospirillum --species ferriphilum --strain DSM_14647 --gram neg\
---usegenus --cpus 4 --rfam \
-lferriphilum_genome.fasta \
+
+
