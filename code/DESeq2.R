@@ -12,10 +12,10 @@ install.packages("seqinr")
 library(seqinr)
 install.packages("openxlsx", dependencies = TRUE)
 
-htseq_table <- read.delim("~/Desktop/genomeAnalysisProjectMK2/combined_file.txt", header = FALSE, sep = '\t', col.names = c("locus_tag", "ERR2036629",  "ERR2036630",  "ERR2036631",  "ERR2036632", "ERR2036633"))
+htseq_table <- read.delim("~/Documents/Masters/Genome analysis/genomeAnalysisProjectMK2/combined_file.txt", header = FALSE, sep = '\t', col.names = c("locus_tag", "ERR2036629",  "ERR2036630",  "ERR2036631",  "ERR2036632", "ERR2036633"))
 
 
-directory <- "~/Desktop/genomeAnalysisProjectMK2/analysis/02_diff_expression/04_HTSeq"
+directory <- "~/Documents/Masters/Genome analysis/genomeAnalysisProjectMK2/analysis/02_diff_expression/04_HTSeq"
 sampleFiles <- grep("output",list.files(directory),value=TRUE)
 sampleNames <- c("ERR2036629",  "ERR2036630",  "ERR2036631",  "ERR2036632", "ERR2036633")
 sampleCondition <- c("Continuous",  "Continuous",  "Bioleaching",  "Bioleaching", "Continuous")
@@ -59,3 +59,8 @@ vsd <- vst(deseq_result)
 pheatmap(assay(vsd)[rownames(vsd) %in% filter_rows, ], cluster_rows=TRUE, show_rownames=TRUE, cluster_cols=TRUE, annotation_col = df)
 
 plotPCA(vsd, intgroup=c("condition"))
+
+
+prokka_annotation <- read.table(file = "~/Documents/Masters/Genome analysis/genomeAnalysisProjectMK2/analysis/01_genome_assembly/04_annotation_prokka/prokka_combined.tsv", sep = '\t', header = TRUE)
+
+matched_gff <- subset(prokka_annotation, prokka_annotation$locus_tag %in% filter_rows, select = c(locus_tag, product))
